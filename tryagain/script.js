@@ -273,27 +273,21 @@ for(var l = 0;l<2;l++){
 
 
 
-var kys = {
-  up: false,
-  down: false,
-  left: false,
-  right: false
-};
-
+var kys = [false,false,false,false]
 
 window.addEventListener("keydown", function (event) {
   switch (event.key) {
     case "w":
-      kys.up = true
+      kys[0] = true
       break;
     case "a":
-      kys.left = true
+      kys[1] = true
       break;
     case "s":
-     kys.down = true
+     kys[2] = true
       break;
     case "d":
-      kys.right = true
+      kys[3] = true
       break;
     default:
       return;
@@ -303,16 +297,16 @@ window.addEventListener("keydown", function (event) {
 window.addEventListener("keyup", function (event) {
   switch (event.key) {
     case "w":
-      kys.up = false;
+      kys[0] = false
       break;
     case "a":
-      kys.left = false;
+      kys[1] = false
       break;
     case "s":
-      kys.down = false;
+      kys[2] = false
       break;
     case "d":
-      kys.right = false;
+      kys[3] = false
       break;
       case " ":
         console.log(kys)
@@ -323,11 +317,19 @@ window.addEventListener("keyup", function (event) {
   }
 }, true);
 
+
+var spd = 2
+let count = 0;
+
 function move(){
-  if (kys.up){camera.y-=2}
-  if (kys.down){camera.y+=2}
-  if (kys.left){camera.x-=2}
-  if (kys.right){camera.x+=2}
+ spd = 2
+count = kys.filter(Boolean).length;
+  if (count > 1){spd = 10}
+  if (kys[0]){camera.y-=spd}
+  if (kys[1]){camera.x-=spd}
+  if (kys[2]){camera.y+=spd}
+  if (kys[3]){camera.x+=spd}
+
 }  
 
 function clear(){
@@ -339,8 +341,14 @@ function clear(){
 function drawPlayer(){
   ctx.drawImage(cha,0,0,8,8,276,400,48,48);
 }
-
+let tick = 0;
 function gameloop() {
+ /* tick++
+  if (tick % 60 == 0){
+    console.log(spd)
+    console.log(kys)
+    //console.log(count)
+  } */
   clear()
   drawTile()
   drawPlayer()
