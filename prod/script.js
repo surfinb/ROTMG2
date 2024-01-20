@@ -1,8 +1,6 @@
 import {map} from './map.js';
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-const drawSize = 48;
-const spriteSize = 8;
 const env = new Image();
 env.src = 'lofiEnvironment.png';
 const cha = new Image();
